@@ -1,0 +1,58 @@
+﻿@model Hsf.EF.Model.hsf_outdevice
+@{
+    ViewBag.Title = "设备详情";
+}
+<h2>设备详情</h2>
+<div>
+    <h4>设备</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.residential)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.residential)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.chinaname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.chinaname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.building)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.building)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.unit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.unit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.devtype)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.devtype)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.createtime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.createtime)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("返回", "Index")
+
+</p>

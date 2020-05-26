@@ -1,0 +1,118 @@
+﻿@model PagedList.StaticPagedList<Hsf.EF.Model.hsf_outdevice>
+@using PagedList.Mvc
+@*@using Hsf.Web.Core.Extension//views文件夹下的web.config配置namespace*@
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>室外设备信息</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="/System/OutDevice/Create">创建设备</a>
+</p>
+@using (Html.BeginForm())
+{
+<p>
+    设备id: @Html.TextBox("searchString", ViewBag.SearchString as string, new { @class = "form-control", @Style = "display:inline" })
+    @Html.Submit("查询")
+</p>
+    <div id="partialajaxlist">
+        <table class="table">
+            <tr>
+                <th>小区编码</th>
+
+                <th>楼号</th>
+
+                <th>单元</th>
+
+                <th>设备id</th>
+
+                <th>设备类型</th>
+
+                <th>设备类型</th>
+
+                <th>创建时间</th>
+
+                <th>操作</th>
+
+                @*<th>图片</th>*@
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.residential)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.building)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.unit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.deviceid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.chinaname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.devtype)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.createtime)
+                </td>
+                <td>
+                    <a href="/System/OutDevice/Details/@item.Id">详情</a>|
+                    @Html.ActionLink("编辑", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.Id })
+                    @*|<a id="@item.Id" href="javascript:void(0);" onclick="ajaxDelete(this)">ajaxDelete</a>*@
+                </td>
+                @*<td>
+            <img src="@item.ImageUrl" />
+        </td>*@
+            </tr>
+            }
+        </table>
+        @Html.Br()
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, pageIndex => Url.Action("Index",
+                            new { pageIndex, lastOrderBy = ViewBag.OrderBy, searchString = ViewBag.SearchString }))
+    </div>
+}
+
+@section scripts{
+    @*这里写的js才是出现在js框架加载后的*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //重新ajax请求 加载两次
+
+            var listData = '@ViewBag.ListData';//单引号的bug需要在后端转码
+
+        })
+
+        function ajaxDelete(obj) {
+            $.ajax({
+                type: "POST",
+                url: '/System/OutDevice/AjaxDelete',
+                data: { id: obj.id },
+                datatype: "text",
+                success: function (data) {
+                    if (data.Result == 1) {
+                        alert("删除成功" + obj.id + " 需要手动刷新界面");
+                    }
+                    else if (data.Result == 2) {
+                        alert("登陆超时,请重新登陆");
+                        location.href = "/fourth/login";
+                    }
+                    else {
+                        alert(data.PromptMsg);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron form">
+    <h1>业主信息管理系统</h1>
+    <input id="upload_file1" type="button" hidden class="layui-btn layui-btn-sm layui-btn-normal UploadFile" lay-data="{url: 'UploadFile?folderId=d569d19f-b9d6-46e5-a803-24364262be43',accept: 'file'}" value="选择" title="重复上传会覆盖已有文件" />
+
+</div>
+
+<script src="~/Content/scripts/plugins/layer2/layer.js"></script>
+<script src="~/Content/scripts/plugins/layui/layui.js"></script>
+<link href="~/Content/scripts/plugins/layui/css/layui.css" rel="stylesheet" />
+<script>
+    layui.use(['layer', 'form', 'upload'], function () {
+        var layer = layui.layer,
+            upload = layui.upload,
+            form = layui.form;
+
+        //合同文件上传
+        upload.render({
+            elem: '.UploadFile' //绑定元素
+            , accept: 'file' //普通文件
+            , exts: 'dwg|zip|apk|xls'
+            , size: 102400 //限制文件大小，单位 KB
+            , before: function (obj) {
+                //layer.load(2); //上传loading
+            }
+            , done: function (res, index, upload) {
+                //上传完毕回调
+                if (res.src != "" && res.src != null) {
+                    $('#CreatePath').val(res.src);
+                    $("#CreatePath_a").attr("href", res.src).text(res.name);
+                    //获取当前触发上传的元素
+                    //var items = this.item;
+                    //items.hide();
+                }
+            }
+        });
+    });
+</script>
+

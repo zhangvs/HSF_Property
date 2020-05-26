@@ -1,0 +1,72 @@
+﻿@model Hsf.EF.Model.hsf_outdevice
+@{
+    ViewBag.Title = "添加室外设备信息";
+    //List<SelectListItem> CategoryList = ViewBag.categoryList as List<SelectListItem>;
+    //Id, telphone, password, chinaname, building, unit, floor, room
+}
+<h2>添加室外设备</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.residential, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.residential)
+                @Html.ValidationMessageFor(model => model.residential)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.building, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.building)
+                @Html.ValidationMessageFor(model => model.building)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.unit, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.unit)
+                @Html.ValidationMessageFor(model => model.unit)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.deviceid, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.deviceid)
+                @Html.ValidationMessageFor(model => model.deviceid)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.chinaname, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.chinaname)
+                @Html.ValidationMessageFor(model => model.chinaname)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.devtype, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="devtype" name="devtype">
+                    <option value="">请选择</option>
+                    <option value="Dahua_EntranceGuard">道闸</option>
+                    <option value="Dahua_UnitDoor">单元门</option>
+                    <option value="Elevator">梯控</option>
+                    <option value="Dahua_Camera">摄像头</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.devtype)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.Submit("提交")
+                @Html.ValidationMessage("unableToSave")
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("返回", "Index")
+</div>

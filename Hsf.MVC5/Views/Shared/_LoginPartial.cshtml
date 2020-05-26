@@ -1,0 +1,24 @@
+﻿@using Hsf.Web.Core.Models;
+
+@if (Context.Session["CurrentUser"] != null && Context.Session["CurrentUser"] is CurrentUser)
+{
+    //using (Html.BeginForm("Logout", "Fourth", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    //{
+        <form action="/Fourth/Logout" class="navbar-right" id="logoutForm" method="post">
+            @Html.AntiForgeryToken()
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    @Html.ActionLink("你好 " + ((CurrentUser)Context.Session["CurrentUser"]).Name + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = ((CurrentUser)Context.Session["CurrentUser"]).Name })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
+            </ul>
+        </form> 
+    //}
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@*@Html.ActionLink("登录", "Login", "Fourth", routeValues: null, htmlAttributes: new { id = "loginLink" })*@<a href="/Fourth/Login" id="loginLink">登录</a></li>
+    </ul>
+}

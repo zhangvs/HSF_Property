@@ -1,0 +1,76 @@
+﻿@model Hsf.EF.Model.hsf_owner
+@{
+    ViewBag.Title = "业主详情";
+}
+<h2>业主详情</h2>
+<div>
+    <h4>业主</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.telphone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.telphone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.password)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.chinaname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.chinaname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.building)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.building)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.unit)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.unit)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.floor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.floor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.room)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.room)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.host)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.host)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.createtime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.createtime)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("返回", "Index")
+
+</p>

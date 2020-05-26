@@ -1,0 +1,53 @@
+﻿@model PagedList.IPagedList<Hsf.EF.Model.hsf_owner>
+@using PagedList.Mvc;
+@{
+    Layout = null;
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+
+        <th>手机号</th>
+
+        <th>@Html.ActionLink("主机", "Index", new { orderBy = ViewBag.OrderBy, searchString = ViewBag.SearchString, page = 1 })</th>
+
+        <th>创建时间</th>
+
+        <th>操作</th>
+
+        @*<th>图片</th>*@
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@item.Id*@
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telphone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.host)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createtime)
+            </td>
+            <td>
+                <a href="/Third/Details/@item.Id">Details</a>|
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                <a id="@item.Id" href="javascript:void(0);" onclick="ajaxDelete(this)">ajaxDelete</a>
+            </td>
+            @*<td>
+                    <img src="@item.ImageUrl" />
+                </td>*@
+        </tr>
+    }
+</table>
+@Html.Br()
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, pageIndex => Url.Action("SearchIndex",
+                            new { pageIndex, lastOrderBy = ViewBag.OrderBy, searchString = ViewBag.SearchString }))

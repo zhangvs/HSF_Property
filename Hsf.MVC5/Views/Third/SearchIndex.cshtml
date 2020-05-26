@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "业主列表";
+}
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a href="/Third/Create">Create New</a>
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by Title: @Html.TextBox("searchString", ViewBag.SearchString as string, new { @class = "form-control", @Style = "display:inline" })
+        @Html.Button("btnSearch", "查询")
+    </p>
+    <div id="searchPartialList">
+        @Html.Action("SearchPartialList", new { pageIndex = 1, orderBy = 0, searchString = "" })
+    </div>
+}
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            //可以一次性的把全部列表数据都写在页面上
+            //ajax请求    事先绑定js变量(风险，比如单引号)    放一些隐藏控件
+
+            $("#btnSearch").on("click", function () {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SearchPartialList")',
+                    data: { searchString: $("#searchString").val(), orderBy: 0 },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#searchPartialList').html(data);
+                        bindPageClick();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+
+
+
+            function bindPageClick() {
+                $(".pagination li a").each(function (dom) {
+                    var href = $(this).attr("href");
+                    if (href) {
+                        $(this).attr("href", "javascript:void(0)");
+                        $(this).on("click", function () {
+                            $.ajax({
+                                type: "POST",
+                                url: href,
+                                data: { searchString: $("#searchString").val(), pageIndex: $(this).text() },
+                                datatype: "json",
+                                success: function (data) {
+                                    $('#searchPartialList').html(data);
+                                    bindPageClick();
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    alert(errorThrown);
+                                }
+                            });
+                        });
+                    }
+                });
+            }
+            bindPageClick();
+        });
+    </script>
+}
